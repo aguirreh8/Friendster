@@ -9,14 +9,7 @@
 			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
 			integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 		<link rel="stylesheet" type="text/css" href="assets/style.css" />
-		<script
-		  src="https://code.jquery.com/jquery-3.3.1.min.js"
-		  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-		  crossorigin="anonymous"></script>
-		<script 
-			src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
-			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
-			crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery.js"></script>
 		<script 
 			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
 			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
@@ -26,11 +19,44 @@
 			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
 			crossorigin="anonymous"></script>
 		<script type="text/javascript" src="assets/javascript.js"></script>
+<!-- This needs to go to style.css -->
+		<style>
+			.survey-answer {
+				width: 200px;
+				height: 25px;
+				border-radius: 5px;
+				box-shadow: 0px 3px 25px -9px rgba(0,0,0,0.75);
+				background: linear-gradient(
+					to bottom, 
+					rgba(255,255,255,1) 0%,
+					rgba(243,243,243,1) 50%,
+					rgba(237,237,237,1) 51%,
+					rgba(255,255,255,1) 100%);
+			}
+
+			.text-bars {
+				width: 80%;
+				height: 40px;
+				border-radius: 5px;
+				font-size: 18px;
+			}
+
+			.friend-img {
+				width: 200px;
+				height: 200px;
+			}
+
+		</style>
+<!-- End of style.css -->
 	</head>
 	<body>
 		<div class="container">
-			<h1>Survey Question</h1>
+			<h1>Survey Questions</h1>
 			<hr />
+			<input type="text" name="nameInput" id="nameInput" class="text-bars"/>
+			<br />
+			<br />
+			<input type="text" name="imgInput" id="imgInput" class="text-bars" />
 			<hr />
 			<h3>Question 1</h3>
 			<h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
@@ -44,7 +70,7 @@
 			</select>
 			<h3>Question 2</h3>
 			<h5>Generally speaking, you rely more on your experience than your imagination.</h5>
-			<select id="surveyAnswer3" class="survey-answer">
+			<select id="surveyAnswer2" class="survey-answer">
 				<option value="" selected disabled>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -135,37 +161,62 @@
 			<hr />
 			<button id="submitBtn" type="button" class="btn btn-primary btn-lg btn-block"><span class="glyphicon glyphicon-ok"></span>Submit</button>
 			<br/>
-			<a>API Friends List</a> | <a>Github Repo</a>
+			<a href="api/friendslist">API Friends List</a> | <a>Github Repo</a>
 			<br />
 		</div>
 
-		<div class="modal" id="myModal" role="dialog">
+		<div class="modal" tableindex="-1" id="myModal" role="dialog" data-backdrop="false">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		        <h1 class="modal-title">Best Match</h1>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        Hello
+		        <h2 id="friendName"></h2>
+		        <img id="friendPic" src="" class="friend-img" />
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
-
+<!-- This needs to go to javascript.js -->
 		<script type="text/javascript">
 			$("#submitBtn").click(function() {
+				const newFriend = {
+					name: $('#nameInput').val(),
+					photo: $('#imgInput').val(),
+					scores: [
+						$("#surveyAnswer1").find("option:selected").val(),
+						$("#surveyAnswer2").find("option:selected").val(),
+						$("#surveyAnswer3").find("option:selected").val(),
+						$("#surveyAnswer4").find("option:selected").val(),
+						$("#surveyAnswer5").find("option:selected").val(),
+						$("#surveyAnswer6").find("option:selected").val(),
+						$("#surveyAnswer7").find("option:selected").val(),
+						$("#surveyAnswer8").find("option:selected").val(),
+						$("#surveyAnswer9").find("option:selected").val(),
+						$("#surveyAnswer10").find("option:selected").val()
+					]
+				}
+
+				$.post("/api/findFriend", newFriend)
+				.then(function(data){
+					console.log(data);
+					$("#friendName").text(data.name);
+					$("#friendPic").attr("src", data.photo);
+				})
+
 				$("#myModal").modal({
-					backdrop: "fade in"				
+					backdrop: "show"				
 				});
+				$(".modal-backdrop").addClass("fade in");
 			})
 		</script>
-
+<!-- End of javascript.js -->
 	</body>
 </html>
