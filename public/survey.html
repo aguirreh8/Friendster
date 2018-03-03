@@ -61,7 +61,7 @@
 			<h3>Question 1</h3>
 			<h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
 			<select id="surveyAnswer1" class="survey-answer">
-				<option value="" selected disabled>Choose your answer</option>
+				<option value="" selected>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -71,7 +71,7 @@
 			<h3>Question 2</h3>
 			<h5>Generally speaking, you rely more on your experience than your imagination.</h5>
 			<select id="surveyAnswer2" class="survey-answer">
-				<option value="" selected disabled>Choose your answer</option>
+				<option value="" selected>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -81,7 +81,7 @@
 			<h3>Question 3</h3>
 			<h5>You find it easy to stay relaxed and focused even when there is some pressure.</h5>
 			<select id="surveyAnswer3" class="survey-answer">
-				<option value="" selected disabled>Choose your answer</option>
+				<option value="" selected>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -91,7 +91,7 @@
 			<h3>Question 4</h3>
 			<h5>You rarely do something just out of sheer curiosity.</h5>
 			<select id="surveyAnswer4" class="survey-answer">
-				<option value="" selected disabled>Choose your answer</option>
+				<option value="" selected>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -101,7 +101,7 @@
 			<h3>Question 5</h3>
 			<h5>People can rarely upset you.</h5>
 			<select id="surveyAnswer5" class="survey-answer">
-				<option value="" selected disabled>Choose your answer</option>
+				<option value="" selected>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -111,7 +111,7 @@
 			<h3>Question 6</h3>
 			<h5>It is often difficult for you to relate to other people’s feelings.</h5>
 			<select id="surveyAnswer6" class="survey-answer">
-				<option value="" selected disabled>Choose your answer</option>
+				<option value="" selected>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -121,7 +121,7 @@
 			<h3>Question 7</h3>
 			<h5>In a discussion, truth should be more important than people’s sensitivities.</h5>
 			<select id="surveyAnswer7" class="survey-answer">
-				<option value="" selected disabled>Choose your answer</option>
+				<option value="" selected>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -131,7 +131,7 @@
 			<h3>Question 8</h3>
 			<h5>You rarely get carried away by fantasies and ideas.</h5>
 			<select id="surveyAnswer8" class="survey-answer">
-				<option value="" selected disabled>Choose your answer</option>
+				<option value="" selected>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -141,7 +141,7 @@
 			<h3>Question 9</h3>
 			<h5>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</h5>
 			<select id="surveyAnswer9" class="survey-answer">
-				<option value="" selected disabled>Choose your answer</option>
+				<option value="" selected>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -151,7 +151,7 @@
 			<h3>Question 10</h3>
 			<h5>You feel more energetic after spending time with a group of people.</h5>
 			<select id="surveyAnswer10" class="survey-answer">
-				<option value="" selected disabled>Choose your answer</option>
+				<option value="" selected>Choose your answer</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
@@ -187,34 +187,58 @@
 <!-- This needs to go to javascript.js -->
 		<script type="text/javascript">
 			$("#submitBtn").click(function() {
-				const newFriend = {
-					name: $('#nameInput').val(),
-					photo: $('#imgInput').val(),
-					scores: [
-						$("#surveyAnswer1").find("option:selected").val(),
-						$("#surveyAnswer2").find("option:selected").val(),
-						$("#surveyAnswer3").find("option:selected").val(),
-						$("#surveyAnswer4").find("option:selected").val(),
-						$("#surveyAnswer5").find("option:selected").val(),
-						$("#surveyAnswer6").find("option:selected").val(),
-						$("#surveyAnswer7").find("option:selected").val(),
-						$("#surveyAnswer8").find("option:selected").val(),
-						$("#surveyAnswer9").find("option:selected").val(),
-						$("#surveyAnswer10").find("option:selected").val()
-					]
+
+				const validateForm = () => {
+					let isValid = true;
+					$(".text-bars").each(function() {
+						if($(this).val() === "") {
+							isValid = false;
+						}
+					});
+
+					$(".survey-answer").each(function() {
+						if($(this).val() === "") {
+							isValid = false;
+						}
+					})
+
+					return isValid;
 				}
 
-				$.post("/api/findFriend", newFriend)
-				.then(function(data){
-					console.log(data);
-					$("#friendName").text(data.name);
-					$("#friendPic").attr("src", data.photo);
-				})
+				if (validateForm()) {
 
-				$("#myModal").modal({
-					backdrop: "show"				
-				});
-				$(".modal-backdrop").addClass("fade in");
+					const newFriend = {
+						name: $('#nameInput').val(),
+						photo: $('#imgInput').val(),
+						scores: [
+							$("#surveyAnswer1").val(),
+							$("#surveyAnswer2").val(),
+							$("#surveyAnswer3").val(),
+							$("#surveyAnswer4").val(),
+							$("#surveyAnswer5").val(),
+							$("#surveyAnswer6").val(),
+							$("#surveyAnswer7").val(),
+							$("#surveyAnswer8").val(),
+							$("#surveyAnswer9").val(),
+							$("#surveyAnswer10").val()
+						]
+					}
+
+					$.post("/api/findFriend", newFriend)
+					.then(function(data){
+						console.log(data);
+						$("#friendName").text(data.name);
+						$("#friendPic").attr("src", data.photo);
+					})
+
+					$("#myModal").modal({
+						backdrop: "show"				
+					});
+					$(".modal-backdrop").addClass("fade in");
+				}
+				else {
+					alert("Please fill in the form");
+				}
 			})
 		</script>
 <!-- End of javascript.js -->
