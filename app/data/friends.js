@@ -1,7 +1,7 @@
 const friends = [
 	{
-		"name": "Megan Fox",
-		"photo": "https://images-na.ssl-images-amazon.com/images/I/91Evyqztd6L._SY664_.jpg",
+		"name": "Cat",
+		"photo": "https://www.petmd.com/sites/default/files/petmd-cat-happy-10.jpg",
 		"scores": [
 			1,
 			2,
@@ -16,8 +16,8 @@ const friends = [
 		]
 	},
 	{
-		"name": "Kate Upton",
-		"photo": "https://cdn.images.express.co.uk/img/dynamic/12/590x/secondary/kate-upton-831627.jpg",
+		"name": "Puppy",
+		"photo": "https://www.merriam-webster.com/assets/mw/images/article/art-wap-landing-mp-lg/puppy-3143-ad4140d8f6055cda2cd8956d4af37ea9@1x.jpg",
 		"scores": [
 			1,
 			2,
@@ -32,8 +32,8 @@ const friends = [
 		]
 	},
 	{
-		"name": "Alexa Bliss",
-		"photo": "http://www.wwe.com/f/styles/gallery_img_l/public/all/2017/08/005_NXT_01272016jg_1429--edb0a1883437f622f544ea3388f9b572.jpg",
+		"name": "Parrot",
+		"photo": "https://cindyknoke.files.wordpress.com/2017/11/dsc02645.jpg",
 		"scores": [
 			5,
 			1,
@@ -49,9 +49,4 @@ const friends = [
 	}
 ];
 
-function Friends() {
-	this.friendsList = friends;
-
-}
-
-module.exports = Friends;
+module.exports = friends;

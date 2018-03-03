@@ -10,3 +10,15 @@
 		rgba(237,237,237,1) 51%,
 		rgba(255,255,255,1) 100%);
 }
+
+.text-bars {
+	width: 80%;
+	height: 40px;
+	border-radius: 5px;
+	font-size: 18px;
+}
+
+.friend-img {
+	width: 200px;
+	height: 200px;
+}

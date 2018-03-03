@@ -19,35 +19,6 @@
 			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
 			crossorigin="anonymous"></script>
 		<script type="text/javascript" src="assets/javascript.js"></script>
-<!-- This needs to go to style.css -->
-		<style>
-			.survey-answer {
-				width: 200px;
-				height: 25px;
-				border-radius: 5px;
-				box-shadow: 0px 3px 25px -9px rgba(0,0,0,0.75);
-				background: linear-gradient(
-					to bottom, 
-					rgba(255,255,255,1) 0%,
-					rgba(243,243,243,1) 50%,
-					rgba(237,237,237,1) 51%,
-					rgba(255,255,255,1) 100%);
-			}
-
-			.text-bars {
-				width: 80%;
-				height: 40px;
-				border-radius: 5px;
-				font-size: 18px;
-			}
-
-			.friend-img {
-				width: 200px;
-				height: 200px;
-			}
-
-		</style>
-<!-- End of style.css -->
 	</head>
 	<body>
 		<div class="container">
@@ -184,63 +155,6 @@
 		    </div>
 		  </div>
 		</div>
-<!-- This needs to go to javascript.js -->
-		<script type="text/javascript">
-			$("#submitBtn").click(function() {
 
-				const validateForm = () => {
-					let isValid = true;
-					$(".text-bars").each(function() {
-						if($(this).val() === "") {
-							isValid = false;
-						}
-					});
-
-					$(".survey-answer").each(function() {
-						if($(this).val() === "") {
-							isValid = false;
-						}
-					})
-
-					return isValid;
-				}
-
-				if (validateForm()) {
-
-					const newFriend = {
-						name: $('#nameInput').val(),
-						photo: $('#imgInput').val(),
-						scores: [
-							$("#surveyAnswer1").val(),
-							$("#surveyAnswer2").val(),
-							$("#surveyAnswer3").val(),
-							$("#surveyAnswer4").val(),
-							$("#surveyAnswer5").val(),
-							$("#surveyAnswer6").val(),
-							$("#surveyAnswer7").val(),
-							$("#surveyAnswer8").val(),
-							$("#surveyAnswer9").val(),
-							$("#surveyAnswer10").val()
-						]
-					}
-
-					$.post("/api/findFriend", newFriend)
-					.then(function(data){
-						console.log(data);
-						$("#friendName").text(data.name);
-						$("#friendPic").attr("src", data.photo);
-					})
-
-					$("#myModal").modal({
-						backdrop: "show"				
-					});
-					$(".modal-backdrop").addClass("fade in");
-				}
-				else {
-					alert("Please fill in the form");
-				}
-			})
-		</script>
-<!-- End of javascript.js -->
 	</body>
 </html>

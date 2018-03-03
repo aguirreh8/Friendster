@@ -1,14 +1,35 @@
-const express = require('express');
-const router = express.Router();
-const path = require("path");
 const bodyParser = require("body-parser");
-const Friends = require("../app/data/friends.js");
+const friends = require("../app/data/friends.js");
 
-const friendsConst = new Friends();
-const friends = friendsConst.friendsList;
+module.exports = function(router) {
+	router.get("/api/friendslist", function(req, res) {
+		res.json(friends);
+	});
 
-router.get("/survey", function(req, res) {
-	res.json(friends);
-});
+	router.post("/api/findFriend", function(req, res) {
+		const newFriend = req.body;
+		let newObj = {
+			name: newFriend.name,
+			photo: newFriend.photo,
+			scores: newFriend["scores[]"]
+		};
 
-module.exports = router;
+		let findMatch = [];
+		friends.forEach((friend) => {
+			let scoresCompareResults = [];
+			friend.scores.forEach((score) => {
+				let i = 0;
+				let matchScores = Math.abs(parseInt(score) - newObj.scores[i]);
+				scoresCompareResults.push(matchScores);
+				i++;
+			})
+			let addAllScores = scoresCompareResults.reduce((a, b) => a + b, 0);
+			findMatch.push(addAllScores);
+			scoresCompareResults = []
+		})
+
+		const returnMatched = findMatch.indexOf(Math.min.apply(Math, findMatch));
+		res.json(friends[returnMatched]);
+		friends.push(newObj);
+	});
+}
