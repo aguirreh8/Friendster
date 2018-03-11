@@ -4,7 +4,7 @@ A mock match making application. Uses an in-app stored API to collect and save i
 ## Getting Started
 You can find a live version of the app [here](https://frienster.herokuapp.com/). Otherwise, clone the app into your desktop.
 
-### Prerquisits
+### Prerequisites
 You will need to install the following node packages into your folder.
 ```
 npm -i body-parser
