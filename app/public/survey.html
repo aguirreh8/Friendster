@@ -1,8 +1,13 @@
+<!-- 
+Friendster App
+Written by Henry Aguirre 2018
+-->
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Friendster - Survey</title>
 		<meta charset="UTF-8" />
+		<!-- Link to styles and javascript -->
 		<link rel="stylesheet" type="text/css" href="assets/reset.css" />
 		<link 
 			rel="stylesheet" 
@@ -14,6 +19,7 @@
 			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
 			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
 			crossorigin="anonymous"></script>
+		<!-- For modal function -->
 		<script 
 			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
 			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
@@ -24,11 +30,15 @@
 		<div class="container">
 			<h1>Survey Questions</h1>
 			<hr />
-			<input type="text" name="nameInput" id="nameInput" class="text-bars"/>
+			<!-- Text input -->
+			<label for="nameInput">Name: </label>
+			<input type="text" name="nameInput" id="nameInput" class="text-bars" placeholder="ex. John Smith" />
 			<br />
 			<br />
-			<input type="text" name="imgInput" id="imgInput" class="text-bars" />
+			<label for="imgInput">Image: </label>
+			<input type="text" name="imgInput" id="imgInput" class="text-bars" placeholder="ex. www.img.com" />
 			<hr />
+			<!-- Question dropdown inputs -->
 			<h3>Question 1</h3>
 			<h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
 			<select id="surveyAnswer1" class="survey-answer">
@@ -130,12 +140,13 @@
 				<option value="5">5</option>
 			</select>
 			<hr />
+			<!-- Submit button -->
 			<button id="submitBtn" type="button" class="btn btn-primary btn-lg btn-block"><span class="glyphicon glyphicon-ok"></span>Submit</button>
 			<br/>
 			<a href="api/friendslist">API Friends List</a> | <a href="https://github.com/aguirreh8/Friendster">Github Repo</a>
 			<br />
 		</div>
-
+		<!-- Start modal element -->
 		<div class="modal" tableindex="-1" id="myModal" role="dialog" data-backdrop="false">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">

@@ -1,3 +1,4 @@
+//Create object to pass and store data
 const friends = [
 	{
 		"name": "Cat",
@@ -49,4 +50,4 @@ const friends = [
 	}
 ];
 
-module.exports = friends;
+module.exports = friends; //export data
